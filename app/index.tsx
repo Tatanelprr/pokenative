@@ -1,13 +1,12 @@
 import { StyleSheet, Text, View } from "react-native";
 import { Link } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { ThemedText } from "@/components/ThemedText";
 
 export default function Index() {
   return (
     <SafeAreaView style = {styles.container}>
-      <Text>Edit app/index.tsx to edit this screen.</Text>
-        <Link href = "/about"> A propos</Link>
-        <Link href = {{pathname : '/pokemon/[id]', params : {id : 3}}}> Pokemon 3</Link>
+      <ThemedText variant = 'headline'>Pokédex</ThemedText>
     </SafeAreaView>
   );
 }
@@ -15,5 +14,5 @@ export default function Index() {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: '#FF0000'
-  },
+  }
 })

@@ -42,11 +42,11 @@ const styles = StyleSheet.create({
 
 
 type Props = TextProps & {
-    variant? : string, 
+    variant? : keyof typeof styles, 
     color?   : string
 }
 
 export function ThemedText({variant, color, ...rest} : Props) {
-    return <Text {...rest}/>
+    return <Text style = {styles[variant ?? 'body3']} {...rest}/>
 }
 
