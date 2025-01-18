@@ -1,4 +1,4 @@
-import { type ViewStyle, Image } from "react-native"
+import { type ViewStyle, Image, StyleSheet } from "react-native"
 import { ThemedText } from "../ThemedText"
 import { Card } from "../Card"
 
@@ -9,8 +9,8 @@ type Props = {
 }
 
 export function PokemonCard ({style, id, name} : Props) {
-    return <Card style = {style}>
-        <ThemedText variant = "caption" color = "grayMedium">#{id.toString().padStart(3, '0')
+    return <Card style = {[style, styles.card]}>
+        <ThemedText style = {styles.id} variant = "caption" color = "grayMedium">#{id.toString().padStart(3, '0')
         }</ThemedText>
         <Image
             source = {{uri : `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`}}
@@ -20,3 +20,12 @@ export function PokemonCard ({style, id, name} : Props) {
         <ThemedText>{name}</ThemedText>
     </Card>
 }
+
+const styles = StyleSheet.create({
+    card : {
+        alignItems : 'center'
+    },
+    id : {
+        alignSelf : 'flex-end'
+    }
+})

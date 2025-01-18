@@ -8,7 +8,7 @@ import { PokemonCard } from "@/components/pokemon/PokemonCard";
 
 export default function Index() {
   const colors = useThemeColors()
-  const pokemons = Array.from({length : 35}, (_, k) => ({
+  const pokemons = Array.from({length : 1025}, (_, k) => ({
     name : 'Pokemon name',
     id   : k + 1
   }))
