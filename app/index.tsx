@@ -5,13 +5,12 @@ import { ThemedText } from "@/components/ThemedText";
 import { useThemeColors } from "@/hooks/useThemeColors";
 import { Card } from "@/components/Card";
 import { PokemonCard } from "@/components/pokemon/PokemonCard";
+import { useFetchQuery } from "@/hooks/useFetchQuery";
 
 export default function Index() {
   const colors = useThemeColors()
-  const pokemons = Array.from({length : 1025}, (_, k) => ({
-    name : 'Pokemon name',
-    id   : k + 1
-  }))
+  const {data} = useFetchQuery('/pokemon?limit=1025')
+  const pokemons = data?.results ?? []
   return (
     <SafeAreaView style = {[styles.container, {backgroundColor : colors.tint}]}>
       <View style = {styles.header}>
