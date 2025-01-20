@@ -10,7 +10,7 @@ import { getPokemonId } from "@/functions/pokemon";
 
 export default function Index() {
   const colors = useThemeColors()
-  const {data, isFetching} = useInfiniteFetchQuery('/pokemon?limit=1025')
+  const {data, isFetching, fetchNextPage} = useInfiniteFetchQuery('/pokemon?limit=21')
   const pokemons = data?.pages.flatMap(page => page.results) ?? []
   return (
     <SafeAreaView style = {[styles.container, {backgroundColor : colors.tint}]}>
@@ -27,6 +27,7 @@ export default function Index() {
           ListFooterComponent = {
             isFetching ? <ActivityIndicator color = {colors.tint}/> : null
           }
+          onEndReached={() => fetchNextPage()}
           renderItem={({item}) => <PokemonCard id = {getPokemonId(item.url)} name = {item.name} style = {{flex : 1 / 3}}/>}
           keyExtractor={(item) => item.url}/>
       </Card>
