@@ -1,11 +1,13 @@
 import { RootView } from "@/components/RootView";
 import { Row } from "@/components/Row";
 import { ThemedText } from "@/components/ThemedText";
+import { useFetchQuery } from "@/hooks/useFetchQuery";
 import { useLocalSearchParams } from "expo-router";
 import { Text, View, StyleSheet, Image } from "react-native";
 
 export default function Pokemon() {
-    const params = useLocalSearchParams()
+  const params      = useLocalSearchParams() as {id : string};
+  const { data : pokemon } = useFetchQuery("/pokemon/[id]", {id : params.id});
   return (
     <RootView>
         <Row>
@@ -15,7 +17,7 @@ export default function Pokemon() {
               width = {32}
               height = {32}
             />
-              <ThemedText color = "grayWhite" variant = "headline"></ThemedText>
+              <ThemedText color = "grayWhite" variant = "headline">{pokemon?.name}</ThemedText>
           </Row>
           <ThemedText color = "grayWhite" variant = "subtitle2">#{params.id.padStart(3, '0')}</ThemedText>
         </Row>
