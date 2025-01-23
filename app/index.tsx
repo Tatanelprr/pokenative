@@ -11,6 +11,7 @@ import { SearchBar } from "@/components/SearchBar";
 import { useState } from "react";
 import { Row } from "@/components/Row";
 import { SortButton } from "@/components/SortButton";
+import { RootView } from "@/components/RootView";
 
 export default function Index() {
   const colors = useThemeColors()
@@ -25,14 +26,14 @@ export default function Index() {
         pokemon.id.toString() === search
     ): pokemons)] .sort((a, b) => (a[sortKey] < b[sortKey] ? -1 : 1));
   return (
-    <SafeAreaView style = {[styles.container, {backgroundColor : colors.tint}]}>
+    <RootView>
       <Row style = {styles.header} gap = {16}>
         <Image source = {require('@/assets/images/Pokeball.png')} width = {24} height = {24}/>
         <ThemedText variant = 'headline' color = "grayLight">
           Pokédex
         </ThemedText>
       </Row>
-      <Row gap = {16}>
+      <Row gap = {16} style = {styles.form}>
         <SearchBar value = {search} onChange = {setSearch} />
         <SortButton value = {sortKey} onChange = {setSortKey} />
       </Row>
@@ -55,18 +56,14 @@ export default function Index() {
           )}
           keyExtractor={(item) => item.id.toString()}/>
       </Card>
-    </SafeAreaView>
+    </RootView>
   );
 }
 
 const styles = StyleSheet.create({
-  container : {
-    flex    : 1,
-    padding : 4
-  },
   header : {
     paddingHorizontal : 12,
-    paddingVertical   : 8 ,
+    paddingBottom     : 8 ,
   },
   body : {
     flex      : 1 ,
@@ -77,5 +74,8 @@ const styles = StyleSheet.create({
   },
   list : {
     padding : 12,
+  },
+  form : {
+    paddingHorizontal : 12,
   }
 })

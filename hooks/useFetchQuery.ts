@@ -4,11 +4,37 @@ const endpoint = "https://pokeapi.co/api/v2"
 
 type API = {
     '/pokemon?limit=21' : {
-        count : number       ,
-        next  : string | null,
-        results : {name : string, url : string}[]
+        count   : number                         ;
+        next    : string | null                  ;
+        results : {name : string, url : string}[];
     }
-}
+    "/pokemon/[id]" : {
+        id     : number ;
+        name   : string ;
+        url    : string ;
+        weight : number ;
+        height : number ;
+        moves : {
+            move : {
+                name : string
+            }
+        }[];
+        stats : {
+            base_stat : number;
+            stat : {
+                name : string
+            }
+        }[];
+        cries : {
+            latest : string;
+        };
+        types : {
+            type : {
+                name : string
+            }
+        }[];
+    };
+};
 
 export function useFetchQuery<T extends keyof API>(path : T) {
     return useQuery({
