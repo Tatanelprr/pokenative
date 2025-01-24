@@ -44,7 +44,7 @@ export default function Pokemon() {
   };
 
   const onNext = () => {
-    router.replace({pathname : '/pokemon/[id]', params : {id : Math.min(id - 1, 1025)}});
+    router.replace({pathname : '/pokemon/[id]', params : {id : Math.min(id + 1, 1025)}});
   };
 
   const isFirst = id === 1   ;
