@@ -5,7 +5,7 @@ import { useFetchQuery } from "@/hooks/useFetchQuery";
 import { useThemeColors } from "@/hooks/useThemeColors";
 import { router, useLocalSearchParams } from "expo-router";
 import { Text, View, StyleSheet, Image, Pressable } from "react-native";
-import { Colors } from "react-native/Libraries/NewAppScreen";
+import { Colors } from "@/constants/Colors";
 
 export default function Pokemon() {
   const colors      = useThemeColors();
@@ -13,9 +13,8 @@ export default function Pokemon() {
   const { data : pokemon } = useFetchQuery("/pokemon/[id]", {id : params.id});
   const mainType  = pokemon?.types?.[0].type.name;
   const colorType = mainType ? Colors.type[mainType] : colors.tint;
-  console.log({mainType, colorType});
   return (
-    <RootView style = {{backgroundColor : colorType}}>
+    <RootView style = {{ backgroundColor : colorType }}>
       <View>
         <Image
           style = {styles.pokeball}
@@ -38,7 +37,6 @@ export default function Pokemon() {
           </Pressable>
           <ThemedText color = "grayWhite" variant = "subtitle2">#{params.id.padStart(3, '0')}</ThemedText>
         </Row>
-        <Text>Pokemon {params.id}</Text>
       </View>
     </RootView>
   );
