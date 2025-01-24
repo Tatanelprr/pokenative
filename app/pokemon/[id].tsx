@@ -1,16 +1,16 @@
-import { RootView } from "@/components/RootView";
-import { Row } from "@/components/Row";
-import { ThemedText } from "@/components/ThemedText";
-import { useFetchQuery } from "@/hooks/useFetchQuery";
-import { useThemeColors } from "@/hooks/useThemeColors";
-import { router, useLocalSearchParams } from "expo-router";
-import { Text, View, StyleSheet, Image, Pressable } from "react-native";
-import { Colors } from "@/constants/Colors";
-import { formatSize, formatWeight, getPokemonArtwork } from "@/functions/pokemon";
-import { Card } from "@/components/Card";
-import { PokemonType } from "@/components/pokemon/PokemonType";
-import { PokemonSpec } from "@/components/pokemon/PokemonSpec";
-import { PokemonStat } from "@/components/pokemon/PokemonStat";
+import           { RootView                                    } from "@/components/RootView"           ;
+import           { ThemedText                                  } from "@/components/ThemedText"         ;
+import           { Row                                         } from "@/components/Row"                ;
+import           { useFetchQuery                               } from "@/hooks/useFetchQuery"           ;
+import           { useThemeColors                              } from "@/hooks/useThemeColors"          ;
+import           { router, useLocalSearchParams                } from "expo-router"                     ;
+import           { Text, View, StyleSheet, Image, Pressable    } from "react-native"                    ;
+import           { Colors                                      } from "@/constants/Colors"              ;
+import           { formatSize, formatWeight, getPokemonArtwork } from "@/functions/pokemon"             ;
+import           { Card                                        } from "@/components/Card"               ;
+import           { PokemonType                                 } from "@/components/pokemon/PokemonType";
+import           { PokemonSpec                                 } from "@/components/pokemon/PokemonSpec";
+import           { PokemonStat                                 } from "@/components/pokemon/PokemonStat";
 
 export default function Pokemon() {
   const colors      = useThemeColors();
@@ -102,15 +102,17 @@ export default function Pokemon() {
           </ThemedText>
 
           <View style = {{alignSelf : 'stretch'}}>
-            <PokemonStat name = "HP" value = {45} color = {colorType}/>
-            <PokemonStat name = "HP" value = {45} color = {colorType}/>
-            <PokemonStat name = "HP" value = {45} color = {colorType}/>
-            <PokemonStat name = "HP" value = {45} color = {colorType}/>
-            <PokemonStat name = "HP" value = {45} color = {colorType}/>
+            {pokemon?.stats.map(stat => (
+              <PokemonStat
+                key = {stat.stat.name}
+                name = {stat.stat.name}
+                value = {stat.base_stat}
+                color = {colorType}
+              />
+            ))}
           </View>
         </Card>
         </View>
-        <Text>Pokemon {params.id}</Text>
       </View>
     </RootView>
   );
@@ -139,6 +141,7 @@ const styles = StyleSheet.create({
   card : {
     paddingHorizontal : 20      ,
     paddingTop        : 56      ,
+    paddingBottom     : 20      ,
     gap               : 16      ,
     alignItems        : 'center',
   }

@@ -10,13 +10,24 @@ type Props = ViewProps & {
 
 }
 
+function statShortName(name : string) : string {
+    return name
+        .replaceAll("special", "S")
+        .replaceAll("-", "")
+        .replaceAll("attack", "ATK")
+        .replaceAll("defense", "DEF")
+        .replaceAll("speed", "SPD")
+        .toUpperCase()
+}
+
+
 export function PokemonStat({style, color, name, value, ...rest} : Props) {
     const colors = useThemeColors()
     return (
         <Row gap = {8} style = {[style, styles.root]} {...rest}>
             <View style = {[styles.name, {borderColor : colors.grayLight}]}>
                 <ThemedText variant = "subtitle3" style = {{color : color}}>
-                    {name}
+                    {statShortName(name)}
                 </ThemedText>
             </View>
             <View style = {styles.number}>
@@ -33,7 +44,7 @@ export function PokemonStat({style, color, name, value, ...rest} : Props) {
 const styles = StyleSheet.create({
     root : {},
     name : {
-        width            : 31,
+        width            : 40,
         paddingRight     : 8 ,
         borderRightWidth : 1 ,
         borderStyle      : 'solid'
