@@ -1,16 +1,16 @@
-import           { RootView                                    } from "@/components/RootView"           ;
-import           { ThemedText                                  } from "@/components/ThemedText"         ;
-import           { Row                                         } from "@/components/Row"                ;
-import           { useFetchQuery                               } from "@/hooks/useFetchQuery"           ;
-import           { useThemeColors                              } from "@/hooks/useThemeColors"          ;
-import           { router, useLocalSearchParams                } from "expo-router"                     ;
-import           { Text, View, StyleSheet, Image, Pressable    } from "react-native"                    ;
-import           { Colors                                      } from "@/constants/Colors"              ;
-import           { formatSize, formatWeight, getPokemonArtwork } from "@/functions/pokemon"             ;
-import           { Card                                        } from "@/components/Card"               ;
-import           { PokemonType                                 } from "@/components/pokemon/PokemonType";
-import           { PokemonSpec                                 } from "@/components/pokemon/PokemonSpec";
-import           { PokemonStat                                 } from "@/components/pokemon/PokemonStat";
+import           { RootView                                                      } from "@/components/RootView"           ;
+import           { ThemedText                                                    } from "@/components/ThemedText"         ;
+import           { Row                                                           } from "@/components/Row"                ;
+import           { useFetchQuery                                                 } from "@/hooks/useFetchQuery"           ;
+import           { useThemeColors                                                } from "@/hooks/useThemeColors"          ;
+import           { router, useLocalSearchParams                                  } from "expo-router"                     ;
+import           { Text, View, StyleSheet, Image, Pressable                      } from "react-native"                    ;
+import           { Colors                                                        } from "@/constants/Colors"              ;
+import           { formatSize, formatWeight, getPokemonArtwork, basePokemonStats } from "@/functions/pokemon"             ;
+import           { Card                                                          } from "@/components/Card"               ;
+import           { PokemonType                                                   } from "@/components/pokemon/PokemonType";
+import           { PokemonSpec                                                   } from "@/components/pokemon/PokemonSpec";
+import           { PokemonStat                                                   } from "@/components/pokemon/PokemonStat";
 
 export default function Pokemon() {
   const colors      = useThemeColors();
@@ -23,6 +23,9 @@ export default function Pokemon() {
   const bio       = species?.flavor_text_entries
     ?.find(({language}) => language.name === 'en')
     ?.flavor_text.replaceAll("\n", " ");
+
+  const stats = pokemon?.stats ?? basePokemonStats;
+
   return (
     <RootView backgroundColor = {colorType}>
       <View>
@@ -63,7 +66,7 @@ export default function Pokemon() {
             height = {200}
           />
         <Card style = {styles.card}>
-          <Row gap = {16}>
+          <Row gap = {16} style = {{ height : 20}}>
             {types.map(type => (
               <PokemonType name = {type.type.name} key = {type.type.name}/>
             ))}
@@ -102,7 +105,7 @@ export default function Pokemon() {
           </ThemedText>
 
           <View style = {{alignSelf : 'stretch'}}>
-            {pokemon?.stats.map(stat => (
+            {stats.map(stat => (
               <PokemonStat
                 key = {stat.stat.name}
                 name = {stat.stat.name}
