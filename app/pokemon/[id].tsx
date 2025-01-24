@@ -17,6 +17,7 @@ export default function Pokemon() {
   const colors      = useThemeColors();
   const params      = useLocalSearchParams() as {id : string};
   const { data : pokemon } = useFetchQuery("/pokemon/[id]", {id : params.id});
+  const id = parseInt(params.id, 10);
   const { data : species } = useFetchQuery("/pokemon-species/[id]", {id : params.id});
   const mainType  = pokemon?.types?.[0].type.name;
   const colorType = mainType ? Colors.type[mainType] : colors.tint;
@@ -36,6 +37,14 @@ export default function Pokemon() {
       uri : cry
     }, {shouldPlay : true})
     sound.playAsync();
+  };
+
+  const onPrevious = () => {
+    router.replace({pathname : '/pokemon/[id]', params : {id : id - 1}});
+  };
+
+  const onNext = () => {
+    router.replace({pathname : '/pokemon/[id]', params : {id : id + 1}});
   };
 
   return (
@@ -70,6 +79,9 @@ export default function Pokemon() {
         </Row>
         <View style = {styles.body}>
           <Row style = {styles.imageRow}>
+            <Pressable onPress = {onPrevious}>
+              <Image width={24} height={24} source={require('@/assets/images/prev.png')} />
+            </Pressable>
             <Pressable onPress = {onImagePress}>
               <Image
                 style = {styles.artwork}
@@ -79,6 +91,9 @@ export default function Pokemon() {
                 width  = {200}
                 height = {200}
               />
+            </Pressable>
+            <Pressable onPress = {onNext}>
+              <Image width={24} height={24} source={require('@/assets/images/next.png')} />
             </Pressable>
           </Row>
         <Card style = {styles.card}>
@@ -149,9 +164,13 @@ const styles = StyleSheet.create({
     top      : 8         ,
   },
   imageRow : {
-    position  : 'absolute',
-    top       : -140      ,
-    zIndex    : 2         ,
+    position          : 'absolute'     ,
+    top               : -140           ,
+    zIndex            : 2              ,
+    justifyContent    : 'space-between',
+    left              : 0              ,
+    right             : 0              ,
+    paddingHorizontal : 20             ,
   },
   artwork : {}, 
   body : {
