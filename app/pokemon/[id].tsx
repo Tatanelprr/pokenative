@@ -40,12 +40,15 @@ export default function Pokemon() {
   };
 
   const onPrevious = () => {
-    router.replace({pathname : '/pokemon/[id]', params : {id : id - 1}});
+    router.replace({pathname : '/pokemon/[id]', params : {id : Math.max(id - 1, 1)}});
   };
 
   const onNext = () => {
-    router.replace({pathname : '/pokemon/[id]', params : {id : id + 1}});
+    router.replace({pathname : '/pokemon/[id]', params : {id : Math.min(id - 1, 1025)}});
   };
+
+  const isFirst = id === 1   ;
+  const isLast  = id === 1025;
 
   return (
     <RootView backgroundColor = {colorType}>
@@ -79,9 +82,17 @@ export default function Pokemon() {
         </Row>
         <View style = {styles.body}>
           <Row style = {styles.imageRow}>
-            <Pressable onPress = {onPrevious}>
-              <Image width={24} height={24} source={require('@/assets/images/prev.png')} />
-            </Pressable>
+            {isFirst ? (
+              <View style = {{width : 24, height : 24}}></View>
+            ) : (
+              <Pressable onPress = {onPrevious}>
+                <Image
+                  width  = {24}
+                  height = {24}
+                  source = {require('@/assets/images/prev.png')}
+                />
+              </Pressable>
+            )}
             <Pressable onPress = {onImagePress}>
               <Image
                 style = {styles.artwork}
@@ -92,9 +103,17 @@ export default function Pokemon() {
                 height = {200}
               />
             </Pressable>
-            <Pressable onPress = {onNext}>
-              <Image width={24} height={24} source={require('@/assets/images/next.png')} />
-            </Pressable>
+            {isLast ? (
+              <View style = {{width : 24, height : 24}}></View>
+            ) : (
+              <Pressable onPress = {onNext}>
+                <Image
+                  width  = {24}
+                  height = {24}
+                  source = {require('@/assets/images/next.png')}
+                />
+              </Pressable>
+            )}
           </Row>
         <Card style = {styles.card}>
           <Row gap = {16} style = {{ height : 20}}>
