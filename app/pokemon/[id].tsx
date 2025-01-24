@@ -14,7 +14,7 @@ export default function Pokemon() {
   const mainType  = pokemon?.types?.[0].type.name;
   const colorType = mainType ? Colors.type[mainType] : colors.tint;
   return (
-    <RootView style = {{ backgroundColor : colorType }}>
+    <RootView style = {{backgroundColor : colorType}}>
       <View>
         <Image
           style = {styles.pokeball}
@@ -37,6 +37,7 @@ export default function Pokemon() {
           </Pressable>
           <ThemedText color = "grayWhite" variant = "subtitle2">#{params.id.padStart(3, '0')}</ThemedText>
         </Row>
+        <Text>Pokemon {params.id}</Text>
       </View>
     </RootView>
   );
