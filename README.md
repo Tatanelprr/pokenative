@@ -23,7 +23,7 @@ L'objectif de ce projet était de maîtriser le développement mobile moderne en
 ### ✨ Fonctionnalités
 * **Encyclopédie Complète** : Accès à la base de données de tous les Pokémon.
 * **Fiches Détaillées** : Visualisation précise des statistiques (PV, Attaque, Défense, Vitesse).
-* **Types & Faiblesses** : Affichage des types avec un code couleur dynamique pour une lecture rapide.
+* **Types** : Affichage des types avec un code couleur dynamique pour une lecture rapide.
 * **Interactions Fluides** : Animations et transitions soignées entre la liste et les détails.
 * **Recherche Instantanée** : Trouvez n'importe quel Pokémon en quelques touches.
 
